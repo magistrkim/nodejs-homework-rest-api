@@ -1,13 +1,13 @@
 import Joi from "joi";
-import Contact from "../models/contact.js";
-import { HttpError, ctrlWrapper } from "../helpers/index.js";
+import Contact from "../../models/contact.js";
+import { HttpError, ctrlWrapper } from "../../helpers/index.js";
 import {
   nameSchema,
   emailSchema,
   phoneSchema,
   favoriteSchema,
   contactUpdateFavoriteSchema,
-} from "../helpers/validation-schemas.js";
+} from "../../helpers/validation-schemas.js";
 
 const contactAddSchema = Joi.object({
   name: nameSchema,
