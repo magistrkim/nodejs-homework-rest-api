@@ -6,7 +6,7 @@ import {
   emailSchema,
   phoneSchema,
   favoriteSchema
-} from "../../helpers/validation-schemas.js";
+} from "../../schemas/validation-schemas.js";
 
 const contactAddSchema = Joi.object({
   name: nameSchema,

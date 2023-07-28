@@ -1,6 +1,6 @@
 import Contact from "../../models/contact.js";
 import { HttpError, ctrlWrapper } from "../../helpers/index.js";
-import { contactUpdateFavoriteSchema } from "../../helpers/validation-schemas.js";
+import { contactUpdateFavoriteSchema } from "../../schemas/validation-schemas.js";
 
 const updateStatusContact = async (req, res) => {
   const { error } = contactUpdateFavoriteSchema.validate(req.body);
