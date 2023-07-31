@@ -8,8 +8,10 @@ import {
   removeByIdCtrl,
   updateStatusByIdCtrl,
 } from "../../controllers/contacts/index.js";
-import { isValidId } from "../../middlewares/index.js";
+import { isValidId, authenticate } from "../../middlewares/index.js";
 const contactsRouter = express.Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", getAllCtrl.getAllContacts);
 
@@ -17,7 +19,11 @@ contactsRouter.get("/:id", isValidId, getOneByIdCtrl.getById);
 
 contactsRouter.post("/", addNewCtrl.addNewContact);
 
-contactsRouter.put("/:id", isValidId, updateByIdCtrl.updateContact);
+contactsRouter.put(
+  "/:id",
+  isValidId,
+  updateByIdCtrl.updateContact
+);
 
 contactsRouter.patch(
   "/:id/favorite",
@@ -25,6 +31,10 @@ contactsRouter.patch(
   updateStatusByIdCtrl.updateStatusContact
 );
 
-contactsRouter.delete("/:id", isValidId, removeByIdCtrl.deleteContact);
+contactsRouter.delete(
+  "/:id",
+  isValidId,
+  removeByIdCtrl.deleteContact
+);
 
 export default contactsRouter;
