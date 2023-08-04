@@ -5,9 +5,10 @@ import {
   authCurrentUser,
   authSignoutUser,
   authUpdateSubscription,
+  authUpdateUserAvatar,
 } from "../../controllers/auth/index.js";
 
-import { authenticate, isValidId } from "../../middlewares/index.js";
+import { authenticate, isValidId, upload } from "../../middlewares/index.js";
 
 const authRouter = express.Router();
 
@@ -20,5 +21,6 @@ authRouter.patch(
   isValidId,
   authUpdateSubscription.updateUserSubscription
 );
+authRouter.patch("/avatars", authenticate, upload.single("avatarURL"), authUpdateUserAvatar.updateUserAvatar)
 
 export default authRouter;
