@@ -1,10 +1,6 @@
-// import express from "express";
-// import jwt from "jsonwebtoken";
-// import { authLoginController } from "../auth/index.js";
 import request from "supertest";
 import mongoose from "mongoose";
 import "dotenv/config";
-import User from "../../models/user.js";
 import app from "../../app.js";
 
 const { DB_HOST, PORT } = process.env;
@@ -30,21 +26,34 @@ describe("test signin controller", () => {
     server.close();
   });
   // after each test to delete user from database
-  afterEach(async () => {
-    await User.deleteMany({});
-  });
+  //   afterEach(async () => {
+  //     await User.deleteMany({});
+  //   });
 
-  test("test signin", async () => {
-    const { status, body, token } = await request(app)
+  test("test signin status", async () => {
+    const { status } = await request(app)
       .post("/api/auth/signin")
       .send(signinData);
     expect(status).toBe(200);
   });
+  test("test response body includes token", async () => {
+    const { body } = await request(app)
+      .post("/api/auth/signin")
+      .send(signinData);
+    expect(body).toHaveProperty("token");
+  });
+  test("test response body includes user", async () => {
+    const { body } = await request(app)
+      .post("/api/auth/signin")
+      .send(signinData);
+    expect(body).toHaveProperty("user");
 
-  // expect(body.email).toBe("string");
-  // expect(body.subscription).toBe("string");
-  // expect(token).toBe("string");
+    const { user: databaseUser } = body;
+    expect(databaseUser).toHaveProperty("email");
+    expect(databaseUser).toHaveProperty("subscription");
 
-  // const user = await User.findOne({ email: signinData.email });
-  // expect(user.email).toBe(signinData.email);
+    const { email, subscription } = databaseUser;
+    expect(typeof email).toBe("string");
+    expect(typeof subscription).toBe("string");
+  });
 });
