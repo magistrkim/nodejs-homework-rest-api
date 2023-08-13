@@ -12,5 +12,5 @@ RUN npm install
 #4.1 we need to launch the project on the proper port
 EXPOSE 3000
 
-#5 launch project with "node app" command
+#5 launch project with "node server" command "start" from package.json
 CMD ["node", "server"]
